@@ -1,1 +1,554 @@
-а
+м<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Маркетплейс событий | HYPE MARKETPLACE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {background:#262D47;color:#fff;font-family:'Montserrat',Arial,sans-serif;margin:0;padding:18px;}
+    h1 {color:gold;text-align:center;margin-top:18px;font-size:2em;font-weight:bold;}
+    h2 {color:#FFD700;margin:32px 0 18px 0;font-size:1.16em;}
+    .cards {display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+    .card {background:#32395C;border-radius:13px;box-shadow:0 6px 26px #181A2B;padding:17px;width:97vw;max-width:320px;display:flex;flex-direction:column;align-items:center;}
+    .card img {width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid gold;margin-bottom:13px;}
+    .card h3{color:gold;font-size:1.1em;margin-bottom:5px;font-weight:bold;}
+    .card .skills{color:orange;font-size:.93em;margin-bottom:7px;}
+    .card .desc{font-size:0.95em;color:#eee;text-align:center;margin-bottom:8px;}
+    .card .price{color:#FFD700;font-weight:bold;margin-bottom:8px;}
+    .chat-btn {background:#fff;color:#32395C;border-radius:6px;padding:7px 15px;font-size:0.98em;margin:5px 0;border:none;cursor:pointer;}
+    .pay-btn {background:gold;color:#23253a;border-radius:9px;font-weight:bold;padding:11px 19px;box-shadow:0 2px 14px #333;margin-top:10px;margin-bottom:8px;cursor:pointer;border:none;}
+    .artist-cal {background:#23244a;color:#FFD700;border-radius:6px;padding:8px 15px;font-size:0.96em;margin-top:6px;margin-bottom:7px;text-align:center;}
+    audio {width:95%;margin-bottom:3px;}
+    .cab-btn {background:gold;color:#23244a;border-radius:8px;padding:9px 20px;font-weight:bold;cursor:pointer;border:none;}
+    table.order-history{width:100%;background:#1e1f2f;color:#FFD700;border-radius:8px;margin-top:15px;font-size:0.97em;}
+    table.order-history th,table.order-history td{padding:6px 3px;font-size:0.95em;}
+    table.order-history th{font-weight:bold;}
+    .ext-links a{color:deepskyblue;text-decoration:underline;padding:0 7px;}
+    #popupNotif {position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#FFD700;color:#23253a;font-weight:bold;padding:12px 19px;border-radius:9px;display:none;z-index:9000;}
+    .stars{color:gold;font-size:1.18em;padding:5px;}
+    .admin-btn,.exp-btn {background:#FFD700;color:#1c222d;padding:8px 15px;border-radius:8px;font-weight:bold;margin:5px;border:none;cursor:pointer;}
+    .portfolio{margin:5px 0 10px 0;text-align:center;}
+    @media(max-width:520px){.card{max-width:98vw;padding:10px;}.cab-btn{padding:10px 7vw;}}
+  </style>
+</head>
+<body>
+  <div style="text-align:right;margin-bottom:18px;">
+    <button id="profileBtn" onclick="showProfileModal()" class="cab-btn">Войти</button>
+    <button class="exp-btn" onclick="exportAllCSV()">Экспорт CSV</button>
+    <button class="admin-btn" onclick="showAdminPanel()">Админка</button>
+    <button class="cab-btn" onclick="toggleTheme()">Тема</button>
+  </div>
+  <h1>Маркетплейс событий | HYPE MARKETPLACE</h1>
+  <div id="themeWarn" style="text-align:center;color:#FFD700;font-size:1.1em"></div>
+
+  <h2>Ведущие</h2>
+  <div class="cards">
+    <div class="card" id="card-ved">
+      <img src="images/vedushaya.jpg" alt="Ольга Осипова">
+      <h3>Ольга Осипова</h3>
+      <div class="skills">MC, шоу, вокал, корпоративы</div>
+      <div class="desc">Эксклюзив, опыт 5+ лет.</div>
+      <div class="stars" id="star-ved">Нет оценок</div>
+      <div class="portfolio">
+        <b>Портфолио:</b>
+        <a href="files/olga_video.mp4" target="_blank">Видео</a>
+        <a href="files/olga_review.pdf" target="_blank">Отзывы</a>
+      </div>
+      <div class="artist-cal" id="cal-ved"></div>
+      <div class="price">2000 ₽</div>
+      <audio controls><source src="music/pelet-pelet.mp3"></audio>
+      <div class="ext-links">
+        <a href="https://t.me/olga_ostg" target="_blank">Telegram</a>
+        <a href="https://vk.com/olga_ostg" target="_blank">VK</a>
+        <a href="https://wa.me/79123456789" target="_blank">WhatsApp</a>
+        <a href="mailto:artist@hype.com">Почта</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('ved')">Заявка + Оплата 2000₽</button>
+    </div>
+    <div class="card" id="card-ved2">
+      <img src="images/default.jpg" alt="Дмитрий Шарап">
+      <h3>Дмитрий Шарап</h3>
+      <div class="skills">Свадьбы, корпоративы, радио</div>
+      <div class="desc">8+ лет опыта. Гарантия результата.</div>
+      <div class="stars" id="star-ved2">Нет оценок</div>
+      <div class="portfolio">
+        <b>Портфолио:</b>
+        <a href="files/sharap_evt.mp4" target="_blank">Видео</a>
+      </div>
+      <div class="artist-cal" id="cal-ved2"></div>
+      <div class="price">1800 ₽</div>
+      <audio controls><source src="music/dmitry.mp3"></audio>
+      <div class="ext-links">
+        <a href="https://t.me/dsharap" target="_blank">Telegram</a>
+        <a href="https://vk.com/sharap_d" target="_blank">VK</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('ved2')">Заявка + Оплата 1800₽</button>
+    </div>
+  </div>
+
+  <h2>Диджеи</h2>
+  <div class="cards">
+    <div class="card" id="card-dj">
+      <img src="images/dj1.jpg" alt="DJ Alex Wave">
+      <h3>DJ Алекс Wave</h3>
+      <div class="skills">House, Pop, Tech</div>
+      <div class="desc">10+ лет на сцене.</div>
+      <div class="stars" id="star-dj">Нет оценок</div>
+      <div class="artist-cal" id="cal-dj"></div>
+      <div class="price">1400 ₽</div>
+      <audio controls><source src="music/dj1.mp3"></audio>
+      <div class="ext-links">
+        <a href="https://t.me/djalexwave" target="_blank">Telegram</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('dj')">Заявка + Оплата 1400₽</button>
+    </div>
+    <div class="card" id="card-dj2">
+      <img src="images/dj2.jpg" alt="DJ Lera Sound">
+      <h3>DJ Лера Sound</h3>
+      <div class="skills">R&B, POP, Disco</div>
+      <div class="desc">Клубы, свадьбы.</div>
+      <div class="stars" id="star-dj2">Нет оценок</div>
+      <div class="artist-cal" id="cal-dj2"></div>
+      <div class="price">1100 ₽</div>
+      <audio controls><source src="music/dj2.mp3"></audio>
+      <button class="pay-btn" onclick="openModal('dj2')">Заявка + Оплата 1100₽</button>
+    </div>
+  </div>
+
+  <h2>Музыканты</h2>
+  <div class="cards">
+    <div class="card" id="card-mus">
+      <img src="images/music1.jpg" alt="Трио Viva Music">
+      <h3>Трио Viva Music</h3>
+      <div class="skills">Скрипка, фортепиано, вокал</div>
+      <div class="desc">Лауреаты конкурсов</div>
+      <div class="stars" id="star-mus">Нет оценок</div>
+      <div class="portfolio">
+        <b>Портфолио:</b>
+        <a href="files/viva_concert.mp4" target="_blank">Концерт</a>
+      </div>
+      <div class="artist-cal" id="cal-mus"></div>
+      <div class="price">1500 ₽</div>
+      <audio controls><source src="music/music1.mp3"></audio>
+      <div class="ext-links">
+        <a href="https://t.me/vivamusic" target="_blank">Telegram</a>
+        <a href="https://vk.com/viva_music" target="_blank">VK</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('mus')">Заявка + Оплата 1500₽</button>
+    </div>
+    <div class="card" id="card-mus2">
+      <img src="images/music2.jpg" alt="Золотой Саксофон">
+      <h3>Золотой Саксофон</h3>
+      <div class="skills">Саксофон, джаз, блюз</div>
+      <div class="desc">Победитель шоу, авторские аранжировки.</div>
+      <div class="stars" id="star-mus2">Нет оценок</div>
+      <div class="artist-cal" id="cal-mus2"></div>
+      <div class="price">1700 ₽</div>
+      <audio controls><source src="music/music2.mp3"></audio>
+      <div class="ext-links">
+        <a href="https://t.me/goldensax" target="_blank">Telegram</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('mus2')">Заявка + Оплата 1700₽</button>
+    </div>
+  </div>
+
+  <h2>Агенты</h2>
+  <div class="cards">
+    <div class="card" id="card-agent">
+      <img src="images/agent1.jpg" alt="Ирина MIR">
+      <h3>Ирина MIR</h3>
+      <div class="skills">Организация событий</div>
+      <div class="desc">10+ лет практики.</div>
+      <div class="stars" id="star-agent">Нет оценок</div>
+      <div class="portfolio">
+        <b>Портфолио:</b>
+        <a href="files/mir_events.pdf" target="_blank">События</a>
+      </div>
+      <div class="artist-cal" id="cal-agent"></div>
+      <div class="price">2400 ₽</div>
+      <div class="ext-links">
+        <a href="https://t.me/irinamir" target="_blank">Telegram</a>
+        <a href="https://vk.com/mir_events" target="_blank">VK</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('agent')">Заявка + Оплата 2400₽</button>
+    </div>
+    <div class="card" id="card-agent2">
+      <img src="images/agent2.jpg" alt="Максим Event">
+      <h3>Максим Event</h3>
+      <div class="skills">Агентские услуги</div>
+      <div class="desc">Подбор артистов.</div>
+      <div class="stars" id="star-agent2">Нет оценок</div>
+      <div class="artist-cal" id="cal-agent2"></div>
+      <div class="price">1800 ₽</div>
+      <div class="ext-links">
+        <a href="https://t.me/maxevent" target="_blank">Telegram</a>
+      </div>
+      <button class="pay-btn" onclick="openModal('agent2')">Заявка + Оплата 1800₽</button>
+    </div>
+  </div>
+
+  <div id="popupNotif"></div>
+
+  <!-- Модальное окно заявки + оплаты -->
+  <div id="modal-pay-all" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;background:rgba(30,30,40,0.92);z-index:5000;">
+    <div style="max-width:340px;margin:90px auto;background:#32395C;padding:26px 18px;border-radius:15px;box-shadow:0 6px 24px #181A2B;">
+      <h2 style="color:gold;">Заявка и онлайн оплата</h2>
+      <form id="universalForm" onsubmit="event.preventDefault();document.getElementById('paybox-tinkoff-all').style.display='block';">
+        <input type="text" id="clientName" placeholder="Имя" required style="width:98%;margin-bottom:10px;padding:9px;">
+        <input type="email" id="clientEmail" placeholder="E-mail" required style="width:98%;margin-bottom:10px;padding:9px;">
+        <input type="tel" id="clientPhone" placeholder="Телефон" required style="width:98%;margin-bottom:10px;padding:9px;">
+        <select id="clientDate" required style="width:98%;margin-bottom:12px;padding:9px;">
+          <option>Выберите дату</option>
+        </select>
+        <button style="background:gold;color:#23253a;border-radius:8px;padding:9px 18px;border:none;">Продолжить</button>
+      </form>
+      <div id="paybox-tinkoff-all" style="display:none;margin-top:17px;">
+        <form action="https://securepay.tinkoff.ru/invoice/..." method="POST" target="_blank" id="payForm">
+          <input type="hidden" name="terminalkey" value="ТВОЙ_TERMINAL_KEY">
+          <input type="hidden" name="amount" id="payAmount">
+          <input type="hidden" name="description" id="payComment">
+          <input type="hidden" name="name" id="payClientName">
+          <input type="hidden" name="email" id="payClientEmail">
+          <input type="hidden" name="phone" id="payClientPhone">
+          <button type="submit" style="background:gold;color:#23253a;border-radius:8px;padding:10px 28px;border:none;" id="payBtn"></button>
+        </form>
+      </div>
+      <button onclick="document.getElementById('modal-pay-all').style.display='none';document.getElementById('paybox-tinkoff-all').style.display='none';" style="margin-top:23px;background:#262D47;color:#FFD700;border-radius:6px;padding:9px 20px;border:none;">Закрыть</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно профиля -->
+  <div id="profileModal" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;background:rgba(30,30,40,0.97);z-index:30000;">
+    <div style="max-width:370px;margin:70px auto;background:#32395C;padding:30px 20px;border-radius:12px;box-shadow:0 12px 32px #191a2b;">
+      <div id="authBlock"></div>
+      <button onclick="hideProfileModal()" style="margin-top:17px;background:#262D47;color:#FFD700;border-radius:6px;padding:8px 22px;border:none;">Закрыть</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно чата -->
+  <div id="chatModal" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;background:rgba(26,26,36,0.97);z-index:40000;">
+    <div style="max-width:380px;margin:70px auto;background:#32395C;padding:23px 20px;border-radius:12px;box-shadow:0 12px 32px #191a2b;">
+      <h2 style="color:gold;">Чат с артистом</h2>
+      <div id="chatBox" style="height:200px;overflow-y:auto;background:#23253a;padding:10px;border-radius:8px;margin-bottom:10px;"></div>
+      <input type="text" id="chatMsg" placeholder="Ваше сообщение..." style="width:99%;margin:8px 0 13px 0;padding:9px;">
+      <button onclick="sendChatMsg()" style="width:100%;background:gold;color:#23243a;border-radius:7px;font-weight:bold;border:none;padding:10px;">Отправить</button>
+      <button onclick="hideChatModal()" style="margin-top:17px;background:#262D47;color:#FFD700;border-radius:6px;padding:8px 22px;border:none;">Закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    const serviceList = {
+      ved:   {amount:200000,comment:'Бронирование ведущего Ольга Осипова (2000 руб)',btnText:'Оплатить бронь (2000 руб)'},
+      ved2:  {amount:180000,comment:'Бронирование ведущего Дмитрий Шарап (1800 руб)',btnText:'Оплатить бронь (1800 руб)'},
+      dj:    {amount:140000,comment:'Бронирование DJ Alex Wave (1400 руб)',btnText:'Оплатить бронь (1400 руб)'},
+      dj2:   {amount:110000,comment:'Бронирование DJ Lera Sound (1100 руб)',btnText:'Оплатить бронь (1100 руб)'},
+      mus:   {amount:150000,comment:'Бронирование Трио Viva Music (1500 руб)',btnText:'Оплатить бронь (1500 руб)'},
+      mus2:  {amount:170000,comment:'Бронирование Золотой Саксофон (1700 руб)',btnText:'Оплатить бронь (1700 руб)'},
+      agent: {amount:240000,comment:'Бронирование агента Ирина MIR (2400 руб)',btnText:'Оплатить бронь (2400 руб)'},
+      agent2:{amount:180000,comment:'Бронирование агента Максим Event (1800 руб)',btnText:'Оплатить бронь (1800 руб)'}
+    };
+    let currentKey='ved', chatIdx=0, adminOpen=false;
+
+    const calendars = {
+      ved:   ['2025-10-15','2025-10-19','2025-10-22'],
+      ved2:  ['2025-10-17','2025-10-21'],
+      dj:    ['2025-10-20','2025-10-25'],
+      dj2:   [],
+      mus:   ['2025-10-16','2025-10-22','2025-10-24'],
+      mus2:  [],
+      agent: ['2025-10-18'],
+      agent2:[]
+    };
+
+    function renderCalendars(){
+      for(let k in calendars){
+        let el=document.getElementById('cal-'+k);
+        if(el) el.innerHTML = calendars[k].length ? `<b>Занято:</b> ${calendars[k].join(', ')}` : '<span style="color:deepskyblue;">Все даты свободны</span>';
+      }
+    }
+
+    function genFreeDates(key){
+      let busy = calendars[key] || [];
+      let today = new Date();
+      let arr=[];
+      for(let i=0;i<14;i++){
+        let dt=new Date(today);
+        dt.setDate(dt.getDate()+i);
+        let ds=dt.toISOString().slice(0,10);
+        if(!busy.includes(ds)) arr.push(ds);
+      }
+      return arr;
+    }
+
+    function openModal(key){
+      currentKey=key;
+      document.getElementById('modal-pay-all').style.display='block';
+      document.getElementById('paybox-tinkoff-all').style.display='none';
+      document.getElementById('universalForm').reset();
+      let user=JSON.parse(localStorage.getItem('user')||'{}');
+      if(user.email) {
+        document.getElementById('clientName').value = user.name || '';
+        document.getElementById('clientEmail').value = user.email || '';
+        document.getElementById('clientPhone').value = user.phone || '';
+      }
+      let freeDates = genFreeDates(currentKey);
+      let select = document.getElementById('clientDate');
+      select.innerHTML='<option>Выберите дату</option>';
+      for(let d of freeDates){
+        let opt=document.createElement('option');
+        opt.value=d;
+        opt.innerText=d;
+        select.appendChild(opt);
+      }
+    }
+
+    document.getElementById('universalForm').onsubmit = function(){
+      const srv=serviceList[currentKey];
+      document.getElementById('payAmount').value=srv.amount;
+      document.getElementById('payComment').value=srv.comment;
+      document.getElementById('payBtn').innerText=srv.btnText;
+      document.getElementById('payClientName').value=document.getElementById('clientName').value;
+      document.getElementById('payClientEmail').value=document.getElementById('clientEmail').value;
+      document.getElementById('payClientPhone').value=document.getElementById('clientPhone').value;
+      let date = document.getElementById('clientDate').value;
+      if(date && calendars[currentKey]) calendars[currentKey].push(date);
+      renderCalendars();
+      let order = {
+        service: srv.comment,
+        date: date,
+        contact: `${document.getElementById('clientName').value} / ${document.getElementById('clientPhone').value}`,
+        email: document.getElementById('clientEmail').value,
+        sum: (srv.amount/100).toLocaleString()+'₽',
+        ts: new Date().toLocaleString()
+      };
+      let history = JSON.parse(localStorage.getItem('order_history')||'[]');
+      history.unshift(order);
+      localStorage.setItem('order_history', JSON.stringify(history));
+      showNotifPopup('Заявка создана! Уведомление отправлено.');
+    }
+
+    function showProfileModal(){
+      let user=JSON.parse(localStorage.getItem('user')||'{}');
+      document.getElementById('profileModal').style.display='block';
+      let orders = JSON.parse(localStorage.getItem('order_history')||'[]');
+      let historyBlock = '';
+      if (orders.length) {
+        historyBlock = '<table class="order-history"><tr><th>Услуга</th><th>Дата</th><th>Сумма</th><th>Отзыв</th><th>Чат</th></tr>' +
+          orders.map((o,idx)=>
+            `<tr>
+              <td>${o.service}</td>
+              <td style="color:#efe;"><b>${o.date||''}</b></td>
+              <td style="text-align:center;">${o.sum}</td>
+              <td>${o.review ? `<span style="color:gold;">${o.review}</span>` : `<button onclick="writeReview(${idx})" style="padding:5px 10px;font-size:0.9em;border:none;background:gold;color:#23253a;border-radius:4px;">Отзыв</button>`}</td>
+              <td><button class="chat-btn" onclick="openChat(${idx})">Чат</button></td>
+            </tr>`
+          ).join('') +
+        '</table>';
+      } else {
+        historyBlock = "<div style='margin-top:18px;color:#FFD700;text-align:center;font-size:1em;'>Пока нет ни одного заказа</div>";
+      }
+      if(user.email){
+        document.getElementById('authBlock').innerHTML = `
+          <h2 style='color:gold;text-align:center;'>Личный кабинет</h2>
+          <div style='color:#fff;background:#212244;border-radius:12px;padding:18px;line-height:1.68;margin-bottom:17px;'>
+            <b>Имя:</b> ${user.name||''}<br>
+            <b>Email:</b> ${user.email||''}<br>
+            <b>Телефон:</b> ${user.phone||''}
+          </div>
+          <button onclick="logoutUserMain()" style='width:100%;background:#222;color:gold;border-radius:7px;padding:11px;font-weight:bold;margin-top:5px;border:none;'>Выйти</button>
+          <div style='margin-top:24px;color:#FFD700;text-align:center;font-size:1.1em;'>История заказов</div>
+          ${historyBlock}
+        `;
+      }else{
+        document.getElementById('authBlock').innerHTML = `
+          <h2 style='color:gold;text-align:center;'>Регистрация клиента</h2>
+          <input type="text" id="regName" placeholder="Имя" style="width:98%;margin-bottom:9px;padding:9px;">
+          <input type="email" id="regEmail" placeholder="E-mail" style="width:98%;margin-bottom:9px;padding:9px;">
+          <input type="tel" id="regPhone" placeholder="Телефон" style="width:98%;margin-bottom:9px;padding:9px;">
+          <input type="password" id="regPass" placeholder="Пароль" style="width:98%;margin-bottom:14px;padding:9px;">
+          <button onclick="registerUserMain()" style="width:100%;background:gold;color:#23253a;border:none;border-radius:8px;padding:10px;">Создать аккаунт</button>
+          <div style='text-align:right;color:#FFD700;margin-bottom:8px;'>Уже есть аккаунт? <a href='#' onclick="showLoginMain();return false;" style='color:#63d6ff;'>Войти</a></div>
+        `;
+      }
+    }
+
+    function writeReview(idx){
+      let review = prompt('Оставьте отзыв и оценку (1-5):');
+      if(review){
+        let history = JSON.parse(localStorage.getItem('order_history')||'[]');
+        history[idx].review = review;
+        localStorage.setItem('order_history', JSON.stringify(history));
+        showProfileModal();
+        updateRatings();
+      }
+    }
+
+    function openChat(idx){
+      chatIdx=idx;
+      let history=JSON.parse(localStorage.getItem('order_history')||'[]');
+      let dialog = history[idx].chat || [];
+      document.getElementById('chatModal').style.display='block';
+      renderChat(dialog);
+    }
+
+    function renderChat(dialog){
+      let box='';
+      for(let m of dialog){
+        box += `<div style="margin-bottom:6px;"><b>${m.from==='client'?'Вы':'Артист'}:</b> ${m.text} <span style="color:#FFD700;font-size:0.92em;">${m.ts||''}</span></div>`;
+      }
+      document.getElementById('chatBox').innerHTML=box||'<div style="color:#FFD700;">Нет сообщений. Начните диалог!</div>';
+    }
+
+    function sendChatMsg(){
+      let txt=document.getElementById('chatMsg').value.trim();
+      if(!txt)return;
+      let history=JSON.parse(localStorage.getItem('order_history')||'[]');
+      let dialog = history[chatIdx].chat || [];
+      dialog.push({from:'client',text:txt,ts:new Date().toLocaleTimeString()});
+      history[chatIdx].chat = dialog;
+      localStorage.setItem('order_history', JSON.stringify(history));
+      renderChat(dialog);
+      document.getElementById('chatMsg').value='';
+      showNotifPopup('Сообщение отправлено артисту!');
+    }
+
+    function hideChatModal(){document.getElementById('chatModal').style.display='none';}
+    function hideProfileModal(){document.getElementById('profileModal').style.display='none';}
+
+    function showLoginMain(){
+      document.getElementById('authBlock').innerHTML = `
+        <h2 style='color:gold;text-align:center;'>Вход</h2>
+        <input type="email" id="loginEmail" placeholder="E-mail" style="width:98%;margin-bottom:11px;padding:9px;">
+        <input type="password" id="loginPass" placeholder="Пароль" style="width:98%;margin-bottom:14px;padding:9px;">
+        <button onclick="loginUserMain()" style="width:100%;background:gold;color:#23253a;border:none;border-radius:8px;padding:10px;">Войти</button>
+        <div style='text-align:right;color:#FFD700;margin-bottom:8px;'>Нет аккаунта? <a href='#' onclick="showProfileModal();return false;" style='color:#63d6ff;'>Зарегистрироваться</a></div>
+      `;
+    }
+
+    function registerUserMain(){
+      let name=document.getElementById('regName').value.trim();
+      let email=document.getElementById('regEmail').value.trim();
+      let phone=document.getElementById('regPhone').value.trim();
+      let pass=document.getElementById('regPass').value;
+      if(name&&email&&phone&&pass){
+        localStorage.setItem('user',JSON.stringify({name,email,phone,pass}));
+        updateProfileBtn();
+        showProfileModal();
+        alert("Регистрация успешна!");
+      }
+    }
+
+    function loginUserMain(){
+      let email=document.getElementById('loginEmail').value.trim();
+      let pass=document.getElementById('loginPass').value;
+      let user=JSON.parse(localStorage.getItem('user')||'{}');
+      if(user.email===email && user.pass===pass){
+        updateProfileBtn();
+        showProfileModal();
+      }else{
+        alert('Неправильный e-mail или пароль!');
+      }
+    }
+
+    function logoutUserMain(){
+      localStorage.removeItem('user');
+      updateProfileBtn();
+      showProfileModal();
+    }
+
+    function updateProfileBtn(){
+      let user=JSON.parse(localStorage.getItem('user')||'{}');
+      document.getElementById('profileBtn').innerText = user.name ? ('👤 '+user.name) : 'Войти';
+    }
+
+    function showNotifPopup(msg){
+      let el=document.getElementById('popupNotif');
+      el.innerText=msg; el.style.display='block';
+      setTimeout(function(){el.style.display='none';},2600);
+    }
+
+    function exportAllCSV(){
+      let history=JSON.parse(localStorage.getItem('order_history')||'[]');
+      if(!history.length){alert('Нет заказов для экспорта');return;}
+      let csv = "Услуга,Дата,Сумма,Контакт,Email,Отзыв\n";
+      for(let order of history){
+        csv += `"${order.service}","${order.date}","${order.sum}","${order.contact}","${order.email}","${order.review||''}"\n`;
+      }
+      let blob = new Blob([csv],{type:'text/csv'});
+      let link = document.createElement('a');
+      link.href=URL.createObjectURL(blob);
+      link.download="orders_all.csv";
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    }
+
+    function updateRatings(){
+      const keys = {ved:'Ольга',ved2:'Дмитрий',dj:'Alex',dj2:'Lera',mus:'Viva',mus2:'Саксофон',agent:'Ирина',agent2:'Максим'};
+      let history=JSON.parse(localStorage.getItem('order_history')||'[]');
+      let ratings={};
+      for(let k in keys) ratings[k]=[];
+      for(let o of history){
+        for(let k in keys)
+          if(o.service && o.service.indexOf(keys[k])!==-1 && o.review) ratings[k].push(+(/\d/.test(o.review)?o.review.match(/\d+/)[0]:5));
+      }
+      for(let k in keys){
+        let st = ratings[k], avg = st.length?(st.reduce((a,b)=>a+b,0)/st.length):0;
+        let s = st.length ? ("★".repeat(Math.round(avg)) + "☆".repeat(5-Math.round(avg)) + " ("+avg.toFixed(1)+")") : "Нет оценок";
+        let el=document.getElementById('star-'+k);
+        if(el) el.innerHTML=s;
+      }
+    }
+
+    function toggleTheme(){
+      if(document.body.style.background==="rgb(38, 45, 71)" || document.body.style.background==="#262D47"){
+        document.body.style.background="#FFF";
+        document.body.style.color="#23253a";
+        document.getElementById('themeWarn').innerText="Светлая тема активна!";
+      } else {
+        document.body.style.background="#262D47";
+        document.body.style.color="#fff";
+        document.getElementById('themeWarn').innerText="Темная тема активна!";
+      }
+      setTimeout(()=>{document.getElementById('themeWarn').innerText='';},1800);
+    }
+
+    function showAdminPanel(){
+      if(adminOpen) return;
+      adminOpen=true;
+      let orders = JSON.parse(localStorage.getItem('order_history')||'[]');
+      let html = "<h2 style='color:gold;text-align:center;'>Админка: все заказы</h2>";
+      html += "<div style='margin-bottom:9px'><button class='exp-btn' onclick='exportAllCSV()'>Экспорт всех заказов</button>";
+      html += "<button class='admin-btn' onclick='sendMassNotif()'>Массовая рассылка</button></div>";
+      html += "<table class='order-history'><tr><th>N</th><th>Service</th><th>Date</th><th>Sum</th><th>Contact</th><th>Email</th></tr>";
+      for(let i=0;i<orders.length;i++){
+        let o=orders[i];
+        html+=`<tr>
+          <td>${i+1}</td>
+          <td>${o.service||''}</td>
+          <td>${o.date||''}</td>
+          <td>${o.sum||''}</td>
+          <td>${o.contact||''}</td>
+          <td>${o.email||''}</td>
+        </tr>`;
+      }
+      html+="</table>";
+      let dlg = document.createElement('div');
+      dlg.id="adminDialog";
+      dlg.style="position:fixed;top:4vw;left:50vw;transform:translateX(-50%);z-index:53000;background:#262d47;padding:29px 26px;border-radius:18px;box-shadow:0 12px 48px #181A2B;color:#FFD700;max-width:90vw;max-height:80vh;overflow:auto;";
+      dlg.innerHTML = html + "<div style='text-align:center;margin-top:18px;'><button onclick='closeAdminPanel()' class='admin-btn'>Закрыть админку</button></div>";
+      document.body.appendChild(dlg);
+    }
+
+    function closeAdminPanel(){
+      adminOpen=false;
+      let ad=document.getElementById('adminDialog');
+      if(ad)ad.remove();
+    }
+
+    function sendMassNotif(){
+      showNotifPopup('Массовое уведомление отправлено всем пользователям!');
+    }
+
+    window.onload = function(){ updateProfileBtn(); renderCalendars(); updateRatings(); }
+  </script>
+</body>
+</html>
